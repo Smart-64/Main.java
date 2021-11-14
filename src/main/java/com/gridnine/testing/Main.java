@@ -1,30 +1,25 @@
 package com.gridnine.testing;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Segment segmentExample = new Segment(LocalDateTime.now(), LocalDateTime.now().plusHours(4));
-        System.out.println("Реализация класса Segment");
-        System.out.println(segmentExample);
-        System.out.println(segmentExample.getDepartureDate());
-        System.out.println(segmentExample.getArrivalDate());
-        System.out.println("---------------------------");
 
-        List<Segment> segmentList = new ArrayList<>();
-        segmentList.add(segmentExample);
+        outputFlights(new ArrayList<>(FlightBuilder.createFlights()));
+        FilterFlights filterFlights = new FilterFlights(FlightBuilder.createFlights());
 
-        System.out.println("Реализация класса Flight");
-        Flight flightExample = new Flight(segmentList);
-        System.out.println(flightExample.getSegments());
-        System.out.println("---------------------------");
+        System.out.println("-----------------------------------");
+        outputFlights(filterFlights.requieredFilterOrder1());
+        System.out.println("-----------------------------------");
+        outputFlights(filterFlights.requieredFilterOrder2());
+        System.out.println("-----------------------------------");
+        outputFlights(filterFlights.requieredFilterOrder3());
+    }
 
-        for (Flight flight : FlightBuilder.createFlights()) {
-            System.out.println(flight);
+    public static void outputFlights(List<Flight> flight) {
+        for (Flight flights : flight) {
+            System.out.println(flights);
             System.out.println();
         }
     }
